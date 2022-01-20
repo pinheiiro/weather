@@ -10,6 +10,7 @@ export const Footer: NextComponentType = () => {
                     className={style.link} 
                     href="https://pinheiro.vercel.app/" 
                     target="_blank"
+                    rel="noopener noreferrer"
                 >
                     Gabriel Pinheiro
                 </a>
