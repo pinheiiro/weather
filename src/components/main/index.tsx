@@ -2,6 +2,7 @@ import { NextComponentType } from 'next';
 import Image from 'next/image';
 import { useState, useEffect, BaseSyntheticEvent } from 'react';
 import axios from 'axios';
+import { AxiosResponse } from 'axios';
 
 import style from './Main.module.css';
 
@@ -10,17 +11,17 @@ import search from '../../assets/search.png';
 export const Main: NextComponentType = () => {
 
     const keyAPI = '655b1ff0cc5b2682a466d6a4410a1e95';
-    const [city, setCity] = useState('');
-    const [response, setResponse] = useState(null);
-    const [error, setError] = useState(false);
-    const [results, setResults] = useState([]);
+    const [city, setCity] = useState <string> ('');
+    const [response, setResponse] = useState <null | AxiosResponse<any>> (null);
+    const [error, setError] = useState <Boolean> (false);
+    const [results, setResults] = useState <any[]> ([]);
 
-    function handleCity({target}: BaseSyntheticEvent) {
+    function handleCity({target}: BaseSyntheticEvent): void {
         const { value } = target;
         setCity(value);
     }
 
-    async function forecast(event: BaseSyntheticEvent) {
+    async function forecast(event: BaseSyntheticEvent): Promise<void> {
         try {
             event.preventDefault();
             const res = await axios({
@@ -47,11 +48,6 @@ export const Main: NextComponentType = () => {
             }
         }
     }, [response]);
-
-    
-    useEffect(() => {
-        console.log(results);
-    }, [results]);
 
     useEffect(() => {
         setTimeout(() => setError(false), 5000);
